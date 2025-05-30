@@ -1,0 +1,52 @@
+<div class="home-page">
+  <section class="hero-section">
+    <div class="container">
+      <h1>Welcome to Employee Manager</h1>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="company-section">
+      <h2 style="text-align: center; font-size: 1.5rem; margin-bottom: 1.5rem; color: #333;">
+        About Our Company
+      </h2>
+
+      <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <mat-card *ngIf="!isLoading && company" class="company-card">
+        <mat-card-header>
+          <mat-card-title>{{ company.name || 'Our Company' }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="company-description">
+            {{ company.description || 'Company information is not available at the moment.' }}
+          </p>
+
+          <div class="company-details">
+            <div class="detail-item">
+              <span class="detail-icon">Location📍</span>
+              <span class="detail-text">{{ company.address || 'Address not specified' }}</span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">Phone📞</span>
+              <span class="detail-text">{{ company.phone || 'Phone not specified' }}</span>
+            </div>
+
+            <div class="detail-item">
+              <span class="detail-icon">Email📧</span>
+              <span class="detail-text">{{ company.email || 'Email not specified' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div *ngIf="!isLoading && !company" class="no-data">
+        <p>No company information available</p>
+      </div>
+    </section>
+  </div>
+</div>

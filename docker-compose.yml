@@ -1,0 +1,55 @@
+services:
+  db:
+    build:
+      context: ./Docker/Database
+      dockerfile: Dockerfile.db
+    hostname: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=YourStrong@Passw0rd
+      - POSTGRES_DB=EmployeeManagement
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
+
+  api:
+    build:
+      context: ./Server
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Database=EmployeeManagement;Username=postgres;Password=YourStrong@Passw0rd
+    networks:
+      - app-network
+    
+  frontend:
+    build:
+      context: ./Client/webclient
+      dockerfile: Dockerfile
+    ports:
+      - "4300:4200"
+    depends_on:
+      api:
+        condition: service_started
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

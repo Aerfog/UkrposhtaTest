@@ -1,0 +1,31 @@
+<div class="report-container">
+  <app-employee-filter (filteredEmployees)="handleFilteredEmployees($event)"></app-employee-filter>
+
+  <div *ngIf="employees.length > 0" class="controls">
+    <mat-form-field appearance="fill">
+      <mat-label>Calculation Type</mat-label>
+      <mat-select [(value)]="calculationType" (selectionChange)="calculateMetric()">
+        <mat-option value="total">Total Salary</mat-option>
+        <mat-option value="average">Average Salary</mat-option>
+        <mat-option value="median">Median Salary</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-card *ngIf="result !== null" class="result-card">
+    <mat-card-title>Calculation Result</mat-card-title>
+    <mat-card-content>
+      <p><strong>Type:</strong> {{ calculationType }}</p>
+      <p><strong>Result:</strong> {{ result }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="employees.length > 0" class="export-controls">
+    <button mat-raised-button color="accent" (click)="exportToTxt()">Export to TXT</button>
+  </div>
+
+  <div *ngIf="employees.length === 0 && !isLoading" class="no-results">
+    <h3>No employees found</h3>
+    <p>Try adjusting your search criteria or add a new employee</p>
+  </div>
+</div>

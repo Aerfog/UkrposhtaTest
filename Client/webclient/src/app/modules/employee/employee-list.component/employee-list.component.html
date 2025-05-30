@@ -1,0 +1,106 @@
+<div class="employees-container">
+  <app-employee-filter
+    (filteredEmployees)="onFiltersChanged($event)">
+  </app-employee-filter>
+  <div class="employees-header">
+    <button mat-icon-button color="warn" (click)="onAddEmployee()">Add</button>
+  </div>
+  <mat-card class="table-card">
+    <div *ngIf="isLoading; else content" class="loading-table">
+      <mat-spinner></mat-spinner>
+      <p class="loading-text">Loading employees...</p>
+    </div>
+    <ng-template #content>
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="employees" class="employees-table mat-elevation-z0">
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last Name</th>
+            <td mat-cell *matCellDef="let employee">{{ employee.lastName || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>First Name</th>
+            <td mat-cell *matCellDef="let employee">{{ employee.firstName || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="middleName">
+            <th mat-header-cell *matHeaderCellDef>Middle Name</th>
+            <td mat-cell *matCellDef="let employee">{{ employee.middleName || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef>Department</th>
+            <td mat-cell *matCellDef="let employee">
+              {{ getDepartmentName(employee.departmentId) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>Position</th>
+            <td mat-cell *matCellDef="let employee">
+              {{ getPositionName(employee.positionId) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let employee">{{ employee.phone || '-' }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef>Address</th>
+            <td mat-cell *matCellDef="let employee" class="address-cell">
+              {{ employee.address || '-' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="salary">
+            <th mat-header-cell *matHeaderCellDef>Salary</th>
+            <td mat-cell *matCellDef="let employee" class="salary-cell">
+              {{ formatSalary(employee.salary) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="birthDate">
+            <th mat-header-cell *matHeaderCellDef>Birth Date</th>
+            <td mat-cell *matCellDef="let employee">{{ formatDate(employee.birthDate) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="hireDate">
+            <th mat-header-cell *matHeaderCellDef>Hire Date</th>
+            <td mat-cell *matCellDef="let employee">{{ formatDate(employee.hireDate) }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let employee" class="actions-cell">
+              <div class="action-buttons">
+                <button
+                  mat-icon-button
+                  color="primary"
+                  (click)="openEditDialog(employee)">
+                  Edit
+                </button>
+                <button
+                  mat-icon-button
+                  color="warn"
+                  (click)="deleteEmployee(employee.id)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="employee-row"></tr>
+        </table>
+      </div>
+
+      <div *ngIf="employees.length === 0 && !isLoading" class="no-results">
+        <h3>No employees found</h3>
+        <p>Try adjusting your search criteria or add a new employee</p>
+      </div>
+    </ng-template>
+  </mat-card>
+</div>

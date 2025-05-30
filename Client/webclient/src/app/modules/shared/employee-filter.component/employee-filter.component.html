@@ -1,0 +1,92 @@
+<mat-card class="filters-card">
+  <form [formGroup]="filterForm">
+    <div class="filters-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Middle Name</mat-label>
+        <input matInput formControlName="middleName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Departments</mat-label>
+        <mat-select formControlName="departments" multiple>
+          <mat-option *ngFor="let department of departments" [value]="department">
+            {{ department.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Positions</mat-label>
+        <mat-select formControlName="positions" multiple>
+          <mat-option *ngFor="let position of positions" [value]="position">
+            {{ position.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Birth Date From</mat-label>
+        <input matInput [matDatepicker]="birthDateFromPicker" formControlName="birthDateFrom">
+        <mat-datepicker-toggle matSuffix [for]="birthDateFromPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthDateFromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Birth Date To</mat-label>
+        <input matInput [matDatepicker]="birthDateToPicker" formControlName="birthDateTo">
+        <mat-datepicker-toggle matSuffix [for]="birthDateToPicker"></mat-datepicker-toggle>
+        <mat-datepicker #birthDateToPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hire Date From</mat-label>
+        <input matInput [matDatepicker]="hireDateFromPicker" formControlName="hireDateFrom">
+        <mat-datepicker-toggle matSuffix [for]="hireDateFromPicker"></mat-datepicker-toggle>
+        <mat-datepicker #hireDateFromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hire Date To</mat-label>
+        <input matInput [matDatepicker]="hireDateToPicker" formControlName="hireDateTo">
+        <mat-datepicker-toggle matSuffix [for]="hireDateToPicker"></mat-datepicker-toggle>
+        <mat-datepicker #hireDateToPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Salary From</mat-label>
+        <input matInput type="number" formControlName="salaryFrom">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Salary To</mat-label>
+        <input matInput type="number" formControlName="salaryTo">
+      </mat-form-field>
+    </div>
+
+    <button mat-stroked-button type="button" (click)="applyFilters()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Apply Filters</span>
+    </button>
+    <button mat-stroked-button type="button" (click)="resetFilters()" [disabled]="isLoading">Reset</button>
+  </form>
+</mat-card>

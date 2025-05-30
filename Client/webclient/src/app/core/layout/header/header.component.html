@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="header-content">
+    <a routerLink="/" class="logo">
+      <span>Employee Manager</span>
+    </a>
+
+    <nav class="nav-links">
+      <a mat-button
+         routerLink="/"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a mat-button
+         routerLink="/employees"
+         routerLinkActive="active">Employees</a>
+      <a mat-button
+         routerLink="/reports"
+         routerLinkActive="active">Reports</a>
+    </nav>
+  </div>
+</mat-toolbar>

@@ -1,0 +1,35 @@
+.filters-card {
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background-color: #ffffff;
+
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    button {
+      min-width: 130px;
+      border-radius: 8px;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+}
+
